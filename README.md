@@ -1,24 +1,67 @@
-# automatic-number-plate-recognition-python-yolov8
+Automatic Number Plate Recognition (ANPR) with YOLOv8
+This project implements a high-performance Automatic Number Plate Recognition (ANPR) system using YOLOv8 for object detection, SORT for vehicle tracking, and EasyOCR for text extraction. It is designed to process traffic footage, identify individual vehicles, and log their license plate numbers into a structured format.
 
-<p align="center">
-<a href="https://www.youtube.com/watch?v=fyJB1t0o0ms">
-    <img width="600" src="https://utils-computervisiondeveloper.s3.amazonaws.com/thumbnails/with_play_button/anpr_yolo2.jpg" alt="Watch the video">
-    </br>Watch on YouTube: Automatic number plate recognition with Python, Yolov8 and EasyOCR !
-</a>
-</p>
+🚀 Key Features
+Vehicle Detection & Tracking: Uses YOLOv8 and SORT to maintain unique identities for vehicles across video frames.
 
-## data
+License Plate Recognition: A specialized YOLOv8 model trained specifically to detect license plates in various conditions.
 
-The video I used in this tutorial can be downloaded [here](https://www.pexels.com/video/traffic-flow-in-the-highway-2103099/).
+OCR Post-Processing: Automated character mapping (e.g., 'O' to '0', 'I' to '1') to improve recognition accuracy for standard license formats.
 
-## models
+Data Interpolation: A custom script to fill in missing detection gaps using linear interpolation, ensuring smooth data logs even if a frame is missed.
 
-A Yolov8 pretrained model was used to detect vehicles.
+Visualization: Generates an output video with overlaid bounding boxes and real-time OCR results.
 
-A licensed plate detector was used to detect license plates. The model was trained with Yolov8 using [this dataset](https://universe.roboflow.com/roboflow-universe-projects/license-plate-recognition-rxg4e/dataset/4) and following this [step by step tutorial on how to train an object detector with Yolov8 on your custom data](https://github.com/computervisioneng/train-yolov8-custom-dataset-step-by-step-guide). 
+🛠️ Installation
+1. Clone the Repository
+Bash
+git clone <your-repository-url>
+cd automatic-number-plate-recognition-python-yolov8
+2. Install Dependencies
+Ensure you have Python installed, then run:
 
-The trained model is available in my [Patreon](https://www.patreon.com/ComputerVisionEngineer).
+Bash
+pip install -r requirements.txt
+Note: This project requires ultralytics, opencv-python, easyocr, and scipy.
 
-## dependencies
+3. Setup SORT Tracker
+The SORT module must be downloaded separately. Clone it into your project directory:
 
-The sort module needs to be downloaded from [this repository](https://github.com/abewley/sort) as mentioned in the [video](https://youtu.be/fyJB1t0o0ms?t=1120).
+Bash
+git clone https://github.com/abewley/sort.git
+📂 Project Structure
+main.py: The core execution script for detection and OCR.
+
+util.py: Contains helper functions for OCR formatting and CSV writing.
+
+add_missing_data.py: Refines the output data by interpolating missing frames.
+
+visualize.py: Creates the final video output with visual annotations.
+
+🚦 Usage
+Run the Detection:
+Place your input video as sample.mp4 and run:
+
+Bash
+python main.py
+This generates test.csv containing raw detection results.
+
+Interpolate Missing Data:
+Refine the CSV to fill in gaps in tracking:
+
+Bash
+python add_missing_data.py
+Generate Visualization:
+Create the final annotated video:
+
+Bash
+python visualize.py
+⚖️ License
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0). This means that if you run a modified version of this software over a network, you must provide the source code of your modifications to your users.
+
+🙏 Credits
+YOLOv8 by Ultralytics.
+
+SORT by abewley.
+
+EasyOCR by JaidedAI.
